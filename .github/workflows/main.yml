@@ -8,20 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository and submodules
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # 也把这个更新到 v4，保持最新
       with:
         repository: PX4/PX4-Autopilot
         ref: v1.14.0
         submodules: 'recursive'
         fetch-depth: 0
-        path: 'PX4-Autopilot'      # <--- 这是修正的关键！它会把代码下载到这个文件夹里
+        path: 'PX4-Autopilot'
 
     - name: Create archive
       run: |
-        tar -zcvf PX4-v1.14.0-full.tar.gz PX4-Autopilot  # 现在这个命令可以正常工作了
+        tar -zcvf PX4-v1.14.0-full.tar.gz PX4-Autopilot
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # <--- 这是最关键的修正！从 v3 改为 v4
       with:
         name: px4-full-clone
         path: PX4-v1.14.0-full.tar.gz
