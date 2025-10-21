@@ -10,14 +10,15 @@ jobs:
     - name: Checkout repository and submodules
       uses: actions/checkout@v3
       with:
-        repository: PX4/PX4-Autopilot   # 从原始仓库拉取
-        ref: v1.14.0                    # 指定 v1.14.0 版本
-        submodules: 'recursive'         # 关键：递归拉取所有子模块
-        fetch-depth: 0                  # 关键：拉取所有历史和标签
+        repository: PX4/PX4-Autopilot
+        ref: v1.14.0
+        submodules: 'recursive'
+        fetch-depth: 0
+        path: 'PX4-Autopilot'      # <--- 这是修正的关键！它会把代码下载到这个文件夹里
 
     - name: Create archive
       run: |
-        tar -zcvf PX4-v1.14.0-full.tar.gz PX4-Autopilot
+        tar -zcvf PX4-v1.14.0-full.tar.gz PX4-Autopilot  # 现在这个命令可以正常工作了
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
